@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
+import { LoadingPage } from '@/components/ui/loading'
 
 interface AuthContextType {
   user: User | null
@@ -37,7 +38,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const signUp = async (email: string, password: string, fullName: string, companyName: string) => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -47,7 +48,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       }
     })
+    
     if (error) throw error
+    
+    // Create profile in our profiles table
+    if (data.user) {
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          id: data.user.id,
+          email: data.user.email!,
+          full_name: fullName,
+          company_name: companyName,
+        })
+      
+      if (profileError) {
+        console.error('Profile creation error:', profileError)
+        // Don't throw here as user is already created
+      }
+    }
   }
 
   const signIn = async (email: string, password: string) => {
@@ -61,6 +80,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
     if (error) throw error
+  }
+
+  if (loading) {
+    return <LoadingPage />
   }
 
   return (
