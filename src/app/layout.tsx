@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 import { AuthProvider } from '@/contexts/AuthContext'
+import { ToastProvider } from '@/components/ui/toast-provider'
 
 export const metadata: Metadata = {
   title: 'QuickLand - Landing Pages in Minutes',
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${GeistSans.variable} ${GeistMono.variable} font-sans`} suppressHydrationWarning={true}>
         <AuthProvider>
+          <ToastProvider />
           {children}
         </AuthProvider>
       </body>

@@ -2,7 +2,7 @@
 
 import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card' // TODO: Add when needed
 import { Logo } from '@/components/ui/logo'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { AnimatedHero } from '@/components/ui/animated-hero'
@@ -146,7 +146,7 @@ export default function HomePage() {
           <div className="mb-12">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Choose Your Plan</h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Start free, upgrade when you're ready. No hidden fees, cancel anytime.
+              Start free, upgrade when you&apos;re ready. No hidden fees, cancel anytime.
             </p>
           </div>
 

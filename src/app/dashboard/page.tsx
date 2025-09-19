@@ -1,20 +1,37 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Logo } from '@/components/ui/logo'
 import { Plus, FileText, Settings, LogOut } from 'lucide-react'
 import Link from 'next/link'
+import toast from 'react-hot-toast'
 
 export default function DashboardPage() {
   const { user, signOut } = useAuth()
+  const router = useRouter()
+
+  // Simple client-side protection
+  useEffect(() => {
+    if (!user) {
+      router.push('/signin')
+    }
+  }, [user, router])
+
+  // Show loading while checking auth
+  if (!user) {
+    return null
+  }
 
   const handleSignOut = async () => {
     try {
       await signOut()
-    } catch (error) {
-      console.error('Sign out error:', error)
+      toast.success('Signed out successfully')
+    } catch {
+      toast.error('Sign out failed')
     }
   }
 

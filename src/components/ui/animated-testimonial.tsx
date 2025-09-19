@@ -124,7 +124,7 @@ export function AnimatedTestimonial({
             initial="hidden"
             animate="visible"
           >
-            "{content}"
+            &quot;{content}&quot;
           </motion.p>
 
           {/* Animated Avatar and Info */}

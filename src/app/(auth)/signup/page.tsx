@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import { AnimatedAuthForm } from '@/components/ui/animated-auth-form'
+import toast from 'react-hot-toast'
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('')
@@ -11,43 +12,49 @@ export default function SignUpPage() {
   const [fullName, setFullName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
   
-  const { signUp } = useAuth()
+  const { signUp, user } = useAuth()
   const router = useRouter()
+
+  // Redirect if user is already authenticated
+  useEffect(() => {
+    if (user) {
+      router.push('/dashboard')
+    }
+  }, [user, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    setError('')
 
     // Basic validation
     if (!fullName.trim()) {
-      setError('Full name is required')
+      toast.error('Full name is required')
       setLoading(false)
       return
     }
     if (!companyName.trim()) {
-      setError('Company name is required')
+      toast.error('Company name is required')
       setLoading(false)
       return
     }
     if (!email.trim()) {
-      setError('Email is required')
+      toast.error('Email is required')
       setLoading(false)
       return
     }
     if (password.length < 6) {
-      setError('Password must be at least 6 characters')
+      toast.error('Password must be at least 6 characters')
       setLoading(false)
       return
     }
 
     try {
       await signUp(email, password, fullName, companyName)
-      router.push('/dashboard')
-    } catch (error: any) {
-      setError(error.message)
+      toast.success('Account created! Please check your email to verify your account.')
+      // Don't redirect immediately - user needs to verify email first
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred')
     } finally {
       setLoading(false)
     }
@@ -66,7 +73,7 @@ export default function SignUpPage() {
       companyName={companyName}
       setCompanyName={setCompanyName}
       loading={loading}
-      error={error}
+      error=""
     />
   )
 }

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/ui/password-input'
 import { Logo } from '@/components/ui/logo'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { ArrowRight, Zap, Clock, Shield, CheckCircle, Star } from 'lucide-react'
@@ -53,7 +54,7 @@ const floatingVariants = {
     transition: {
       duration: 3,
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: "easeInOut" as const
     }
   }
 }
@@ -65,7 +66,7 @@ const sparkleVariants = {
     transition: {
       duration: 2,
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: "easeInOut" as const
     }
   }
 }
@@ -275,11 +276,10 @@ export function AnimatedAuthForm({
                       Password
                     </label>
                     <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                      <Input
+                      <PasswordInput
                         id="password"
-                        type="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={setPassword}
                         required
                         className="h-12 text-base"
                         placeholder="••••••••"
@@ -287,16 +287,6 @@ export function AnimatedAuthForm({
                     </motion.div>
                   </motion.div>
                   
-                  {error && (
-                    <motion.div 
-                      className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ type: "spring", stiffness: 200 }}
-                    >
-                      <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
-                    </motion.div>
-                  )}
                   
                   <motion.div
                     variants={itemVariants}
@@ -480,7 +470,7 @@ export function AnimatedAuthForm({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.3 }}
               >
-                "QuickLand saved us weeks of development time. Our landing page went live in minutes and looks incredibly professional."
+                &quot;QuickLand saved us weeks of development time. Our landing page went live in minutes and looks incredibly professional.&quot;
               </motion.p>
               <motion.p 
                 className="text-xs text-gray-500 dark:text-gray-500 mt-2"
@@ -619,7 +609,7 @@ export function AnimatedAuthForm({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.1 }}
                 >
-                  "QuickLand saved us weeks of development time. Our landing page went live in minutes and looks incredibly professional."
+                  &quot;QuickLand saved us weeks of development time. Our landing page went live in minutes and looks incredibly professional.&quot;
                 </motion.p>
                 <motion.p 
                   className="text-xs text-gray-500 dark:text-gray-500 mt-2"
@@ -728,11 +718,10 @@ export function AnimatedAuthForm({
                         Password
                       </label>
                       <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                        <Input
+                        <PasswordInput
                           id="password"
-                          type="password"
                           value={password}
-                          onChange={(e) => setPassword(e.target.value)}
+                          onChange={setPassword}
                           required
                           className="h-11"
                           placeholder="••••••••"
