@@ -20,7 +20,7 @@ const cardVariants = {
     transition: {
       delay: i * 0.15,
       duration: 0.5,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }),
   hover: {
@@ -28,7 +28,7 @@ const cardVariants = {
     scale: 1.02,
     transition: {
       duration: 0.2,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }
 }
@@ -41,7 +41,7 @@ const iconVariants = {
     transition: {
       delay: 0.3,
       duration: 0.5,
-      type: "spring",
+      type: "spring" as const,
       stiffness: 200
     }
   },

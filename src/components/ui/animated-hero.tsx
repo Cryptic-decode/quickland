@@ -23,7 +23,7 @@ const itemVariants = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }
 }
@@ -34,7 +34,7 @@ const floatingVariants = {
     transition: {
       duration: 4,
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: "easeInOut" as const
     }
   }
 }
@@ -46,7 +46,7 @@ const sparkleVariants = {
     transition: {
       duration: 2,
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: "easeInOut" as const
     }
   }
 }
@@ -105,7 +105,7 @@ export function AnimatedHero() {
         variants={itemVariants}
       >
         Create professional landing pages instantly with AI. No design skills required. 
-        Perfect for Nigerian businesses.
+        Perfect for businesses worldwide.
       </motion.p>
       
       {/* Animated Stats */}
@@ -185,7 +185,7 @@ export function AnimatedHero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
         >
-          Trusted by Nigerian businesses
+          Trusted by businesses worldwide
         </motion.p>
         <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
           {["Fayoade Farms", "BillBaze", "NotTech Ltd", "PodMagic Media", "+50 More"].map((company, index) => (

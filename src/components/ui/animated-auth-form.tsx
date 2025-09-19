@@ -43,7 +43,7 @@ const itemVariants = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }
 }
@@ -178,7 +178,7 @@ export function AnimatedAuthForm({
               variants={itemVariants}
             >
               {isSignUp 
-                ? "Join thousands of Nigerian businesses using QuickLand to create professional, AI-powered landing pages that convert visitors into customers."
+                ? "Join thousands of businesses using QuickLand to create professional, AI-powered landing pages that convert visitors into customers."
                 : "Continue creating amazing landing pages that convert visitors into customers."
               }
             </motion.p>
@@ -506,7 +506,7 @@ export function AnimatedAuthForm({
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
                 {isSignUp 
-                  ? "Join thousands of Nigerian businesses using QuickLand to create professional, AI-powered landing pages that convert visitors into customers."
+                  ? "Join thousands of businesses using QuickLand to create professional, AI-powered landing pages that convert visitors into customers."
                   : "Continue creating amazing landing pages that convert visitors into customers."
                 }
               </p>

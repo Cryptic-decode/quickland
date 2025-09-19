@@ -22,7 +22,7 @@ const cardVariants = {
     transition: {
       delay: i * 0.15,
       duration: 0.5,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }),
   hover: {
@@ -30,7 +30,7 @@ const cardVariants = {
     scale: 1.02,
     transition: {
       duration: 0.2,
-      ease: "easeOut"
+      ease: "easeOut" as const
     }
   }
 }
@@ -43,7 +43,7 @@ const starVariants = {
     transition: {
       delay: 0.5 + i * 0.1,
       duration: 0.4,
-      type: "spring",
+      type: "spring" as const,
       stiffness: 200
     }
   })
@@ -57,7 +57,7 @@ const avatarVariants = {
     transition: {
       delay: 0.8,
       duration: 0.5,
-      type: "spring",
+      type: "spring" as const,
       stiffness: 200
     }
   }

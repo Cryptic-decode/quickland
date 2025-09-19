@@ -302,7 +302,7 @@ export default function HomePage() {
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            Join hundreds of Nigerian businesses already using QuickLand
+            Join hundreds of businesses already using QuickLand
           </motion.p>
           <motion.div
             initial={{ y: 20, opacity: 0 }}
