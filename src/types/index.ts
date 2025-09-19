@@ -46,6 +46,7 @@ export interface QuickLandFormData {
   page_type: 'single' | 'multi'
   sections: string[]
   content_tone: 'professional' | 'casual' | 'creative' | 'friendly'
+  template: string
   
   // Step 3: Content Preferences
   key_messages: string[]

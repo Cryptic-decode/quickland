@@ -22,7 +22,12 @@ import {
   MapPin,
   Star,
   Award,
-  Zap
+  Zap,
+  Eye,
+  Palette,
+  ShoppingCart,
+  Utensils,
+  Briefcase
 } from 'lucide-react'
 import { QuickLandFormData } from '@/types'
 
@@ -118,6 +123,59 @@ const availableSections = [
   }
 ]
 
+const templates = [
+  {
+    id: 'business_professional',
+    title: 'Business Professional',
+    description: 'Clean, corporate design perfect for B2B services',
+    icon: Briefcase,
+    features: ['Hero with CTA', 'Services', 'About', 'Contact'],
+    colors: ['Blue', 'Gray', 'White'],
+    category: 'business',
+    preview: '/templates/business-professional-preview.jpg'
+  },
+  {
+    id: 'creative_agency',
+    title: 'Creative Agency',
+    description: 'Bold, modern design for creative professionals',
+    icon: Palette,
+    features: ['Portfolio', 'Team', 'Process', 'Testimonials'],
+    colors: ['Purple', 'Pink', 'Orange'],
+    category: 'creative',
+    preview: '/templates/creative-agency-preview.jpg'
+  },
+  {
+    id: 'ecommerce',
+    title: 'E-commerce',
+    description: 'Product-focused design for online stores',
+    icon: ShoppingCart,
+    features: ['Product Showcase', 'Pricing', 'Reviews', 'Checkout'],
+    colors: ['Green', 'Blue', 'White'],
+    category: 'ecommerce',
+    preview: '/templates/ecommerce-preview.jpg'
+  },
+  {
+    id: 'service_provider',
+    title: 'Service Provider',
+    description: 'Trust-focused design for local services',
+    icon: Users,
+    features: ['Services', 'Testimonials', 'Location', 'Booking'],
+    colors: ['Teal', 'Blue', 'Gray'],
+    category: 'service',
+    preview: '/templates/service-provider-preview.jpg'
+  },
+  {
+    id: 'restaurant_food',
+    title: 'Restaurant & Food',
+    description: 'Appetizing design for food businesses',
+    icon: Utensils,
+    features: ['Menu', 'Gallery', 'Location', 'Reservations'],
+    colors: ['Red', 'Orange', 'Yellow'],
+    category: 'food',
+    preview: '/templates/restaurant-food-preview.jpg'
+  }
+]
+
 const contentTones = [
   {
     id: 'professional',
@@ -150,6 +208,7 @@ export function Step2PageConfig({ formData, onNext, onBack }: Step2PageConfigPro
     page_type: formData.page_type || 'single',
     sections: formData.sections || ['hero'],
     content_tone: formData.content_tone || 'professional',
+    template: formData.template || 'business_professional',
     ...formData
   })
 
@@ -185,6 +244,10 @@ export function Step2PageConfig({ formData, onNext, onBack }: Step2PageConfigPro
     setData(prev => ({ ...prev, content_tone: tone as any }))
   }
 
+  const handleTemplateChange = (template: string) => {
+    setData(prev => ({ ...prev, template }))
+  }
+
   const handleNext = () => {
     // Basic validation
     if (!data.page_type) {
@@ -197,6 +260,10 @@ export function Step2PageConfig({ formData, onNext, onBack }: Step2PageConfigPro
     }
     if (!data.content_tone) {
       alert('Please select a content tone')
+      return
+    }
+    if (!data.template) {
+      alert('Please select a template')
       return
     }
 
@@ -326,6 +393,128 @@ export function Step2PageConfig({ formData, onNext, onBack }: Step2PageConfigPro
                 </motion.div>
               ))}
             </div>
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      {/* Template Selection */}
+      <motion.div variants={itemVariants}>
+        <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50">
+          <CardHeader>
+            <div className="flex items-center space-x-3 mb-2">
+              <Layout className="h-6 w-6 text-primary" />
+              <CardTitle className="text-gray-900 dark:text-white">Choose Template</CardTitle>
+            </div>
+            <CardDescription className="text-gray-600 dark:text-gray-400">
+              Select a professional template that matches your business type
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {templates.map((template) => (
+                <motion.div
+                  key={template.id}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className={`relative p-6 rounded-xl border-2 cursor-pointer transition-all ${
+                    data.template === template.id
+                      ? 'border-primary bg-primary/5 dark:bg-primary/10'
+                      : 'border-gray-200 dark:border-gray-700 hover:border-primary/50'
+                  }`}
+                  onClick={() => handleTemplateChange(template.id)}
+                >
+                  {/* Template Preview Placeholder */}
+                  <div className="relative mb-4 h-32 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-lg overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <template.icon className="h-12 w-12 text-gray-400 dark:text-gray-500" />
+                    </div>
+                    <div className="absolute top-2 right-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-8 p-0 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    {data.template === template.id && (
+                      <motion.div
+                        className="absolute inset-0 bg-primary/20 flex items-center justify-center"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <CheckCircle className="h-8 w-8 text-primary" />
+                      </motion.div>
+                    )}
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                        {template.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {template.description}
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <div>
+                        <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Features:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {template.features.map((feature) => (
+                            <Badge key={feature} variant="secondary" className="text-xs">
+                              {feature}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Colors:</p>
+                        <div className="flex space-x-1">
+                          {template.colors.map((color) => (
+                            <div
+                              key={color}
+                              className={`w-4 h-4 rounded-full ${
+                                color === 'Blue' ? 'bg-blue-500' :
+                                color === 'Gray' ? 'bg-gray-500' :
+                                color === 'White' ? 'bg-white border border-gray-300' :
+                                color === 'Purple' ? 'bg-purple-500' :
+                                color === 'Pink' ? 'bg-pink-500' :
+                                color === 'Orange' ? 'bg-orange-500' :
+                                color === 'Green' ? 'bg-green-500' :
+                                color === 'Teal' ? 'bg-teal-500' :
+                                color === 'Red' ? 'bg-red-500' :
+                                color === 'Yellow' ? 'bg-yellow-500' : 'bg-gray-500'
+                              }`}
+                              title={color}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            
+            {data.template && (
+              <motion.div
+                className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-5 w-5 text-primary" />
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                    Selected: {templates.find(t => t.id === data.template)?.title}
+                  </span>
+                </div>
+              </motion.div>
+            )}
           </CardContent>
         </Card>
       </motion.div>
