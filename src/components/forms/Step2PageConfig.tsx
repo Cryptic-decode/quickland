@@ -4,16 +4,13 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
+// import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { 
   Layout, 
   Settings, 
   CheckCircle, 
-  ArrowRight, 
-  Monitor, 
-  Smartphone, 
-  Globe,
+  ArrowRight,
   FileText,
   Users,
   BarChart3,
@@ -30,6 +27,7 @@ import {
   Briefcase
 } from 'lucide-react'
 import { QuickLandFormData } from '@/types'
+import { TemplatePreviewModal } from '@/components/ui/template-preview-modal'
 
 interface Step2PageConfigProps {
   formData: Partial<QuickLandFormData>
@@ -212,6 +210,9 @@ export function Step2PageConfig({ formData, onNext, onBack }: Step2PageConfigPro
     ...formData
   })
 
+  const [previewTemplate, setPreviewTemplate] = useState<typeof templates[0] | null>(null)
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+
   const handlePageTypeChange = (pageType: string) => {
     setData(prev => ({ 
       ...prev, 
@@ -241,11 +242,21 @@ export function Step2PageConfig({ formData, onNext, onBack }: Step2PageConfigPro
   }
 
   const handleToneChange = (tone: string) => {
-    setData(prev => ({ ...prev, content_tone: tone as any }))
+    setData(prev => ({ ...prev, content_tone: tone as 'professional' | 'casual' | 'creative' | 'friendly' }))
   }
 
   const handleTemplateChange = (template: string) => {
     setData(prev => ({ ...prev, template }))
+  }
+
+  const handlePreviewTemplate = (template: typeof templates[0]) => {
+    setPreviewTemplate(template)
+    setIsPreviewOpen(true)
+  }
+
+  const handleSelectTemplate = (templateId: string) => {
+    setData(prev => ({ ...prev, template: templateId }))
+    setIsPreviewOpen(false)
   }
 
   const handleNext = () => {
@@ -433,6 +444,10 @@ export function Step2PageConfig({ formData, onNext, onBack }: Step2PageConfigPro
                         variant="ghost"
                         size="sm"
                         className="h-8 w-8 p-0 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handlePreviewTemplate(template)
+                        }}
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
@@ -663,7 +678,7 @@ export function Step2PageConfig({ formData, onNext, onBack }: Step2PageConfigPro
                         {tone.description}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-500 italic">
-                        "{tone.example}"
+                        &ldquo;{tone.example}&rdquo;
                       </p>
                     </div>
                   </div>
@@ -690,6 +705,15 @@ export function Step2PageConfig({ formData, onNext, onBack }: Step2PageConfigPro
           </motion.span>
         </Button>
       </motion.div>
+
+      {/* Template Preview Modal */}
+      <TemplatePreviewModal
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+        template={previewTemplate}
+        onSelect={handleSelectTemplate}
+        selectedTemplate={data.template}
+      />
     </motion.div>
   )
 }

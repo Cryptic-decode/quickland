@@ -143,7 +143,7 @@ export function Step3ContentPrefs({ formData, onNext, onBack }: Step3ContentPref
   }
 
   const handleImageStyleChange = (style: string) => {
-    setData(prev => ({ ...prev, image_style: style as any }))
+    setData(prev => ({ ...prev, image_style: style as 'professional' | 'lifestyle' | 'minimal' | 'vibrant' }))
   }
 
   const handleGenerate = () => {
