@@ -1,17 +1,14 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { 
   Palette, 
   Sparkles, 
-  Users, 
-  Award, 
   ArrowRight,
-  Star,
-  CheckCircle,
   Instagram,
   Twitter,
   Linkedin,
@@ -66,9 +63,11 @@ export function CreativeAgencyTemplate({ formData }: CreativeAgencyTemplateProps
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               {formData.logo_url ? (
-                <img 
+                <Image 
                   src={formData.logo_url} 
-                  alt={formData.company_name}
+                  alt={formData.company_name || 'Company logo'}
+                  width={40}
+                  height={40}
                   className="h-10 w-auto"
                 />
               ) : (
@@ -199,7 +198,7 @@ export function CreativeAgencyTemplate({ formData }: CreativeAgencyTemplateProps
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  We're Creative Minds
+                  We&apos;re Creative Minds
                 </h2>
                 <p className="text-lg text-gray-600 mb-6">
                   {formData.business_description}
@@ -362,10 +361,10 @@ export function CreativeAgencyTemplate({ formData }: CreativeAgencyTemplateProps
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Let's Create Something Amazing
+                Let&apos;s Create Something Amazing
               </h2>
               <p className="text-xl text-gray-600">
-                Ready to bring your vision to life? Let's talk about your project.
+                Ready to bring your vision to life? Let&apos;s talk about your project.
               </p>
             </div>
             
@@ -395,9 +394,11 @@ export function CreativeAgencyTemplate({ formData }: CreativeAgencyTemplateProps
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 {formData.logo_url ? (
-                  <img 
+                  <Image 
                     src={formData.logo_url} 
-                    alt={formData.company_name}
+                    alt={formData.company_name || 'Company logo'}
+                    width={32}
+                    height={32}
                     className="h-8 w-auto"
                   />
                 ) : (

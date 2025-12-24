@@ -327,7 +327,6 @@ export function Step2PageConfig({ formData, onNext, onBack }: Step2PageConfigPro
   }
 
   const selectedSections = data.sections || []
-  const requiredSections = availableSections.filter(s => s.required).map(s => s.id)
 
   return (
     <motion.div

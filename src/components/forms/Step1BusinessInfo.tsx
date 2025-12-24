@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -299,9 +300,11 @@ export function Step1BusinessInfo({ formData, onNext, onBack }: Step1BusinessInf
                 </div>
               ) : (
                 <div className="flex items-center space-x-4 p-4 border border-gray-300 dark:border-gray-600 rounded-lg">
-                  <img
+                  <Image
                     src={logoPreview}
                     alt="Logo preview"
+                    width={64}
+                    height={64}
                     className="h-16 w-16 object-contain rounded"
                   />
                   <div className="flex-1">

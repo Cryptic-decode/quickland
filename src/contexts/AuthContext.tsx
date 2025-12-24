@@ -101,7 +101,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signIn = async (email: string, password: string) => {
     if (isMockAuth) {
       // Use mock auth
-      const { data, error } = await mockAuth.signIn(email, password)
+      const { data, error } = await mockAuth.signIn(email)
       if (error) throw error
       setUser(data.user as User)
       return data.user

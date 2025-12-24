@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { 
   MessageSquare, 
@@ -19,7 +18,6 @@ import {
   Sparkles,
   Zap,
   Heart,
-  Camera,
   Palette,
   Wand2
 } from 'lucide-react'
@@ -157,8 +155,8 @@ export function Step3ContentPrefs({ formData, onNext, onBack }: Step3ContentPref
       return
     }
 
-    // Log complete form data for now
-    console.log('Complete form data:', data)
+    // Pass data to parent component
+    onNext(data)
     
     // Show success message
     alert('Landing page generation started! This feature will be available soon.')
@@ -410,7 +408,7 @@ export function Step3ContentPrefs({ formData, onNext, onBack }: Step3ContentPref
         <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50">
           <CardHeader>
             <div className="flex items-center space-x-3 mb-2">
-              <Image className="h-6 w-6 text-primary" />
+              <Image className="h-6 w-6 text-primary" aria-label="Image style icon" />
               <CardTitle className="text-gray-900 dark:text-white">Image Style</CardTitle>
             </div>
             <CardDescription className="text-gray-600 dark:text-gray-400">

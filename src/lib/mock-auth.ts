@@ -39,7 +39,7 @@ export const mockAuth = {
     return { data: { user: mockUser }, error: null }
   },
   
-         signIn: async (email: string, _password: string) => {
+         signIn: async (email: string) => {
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 1000))
     
@@ -70,7 +70,7 @@ export const mockAuth = {
     return { data: { session: null }, error: null }
   },
   
-  onAuthStateChange: (_callback: (event: string, session: unknown) => void) => {
+  onAuthStateChange: () => {
     // Mock auth state change listener
     return { data: { subscription: { unsubscribe: () => {} } } }
   }

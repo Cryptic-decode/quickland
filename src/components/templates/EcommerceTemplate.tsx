@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -12,13 +13,10 @@ import {
   User, 
   Menu,
   ArrowRight,
-  CheckCircle,
   Truck,
   Shield,
   RotateCcw,
   CreditCard,
-  Plus,
-  Minus,
   ShoppingBag,
   Package,
   TrendingUp,
@@ -70,9 +68,11 @@ export function EcommerceTemplate({ formData }: EcommerceTemplateProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               {formData.logo_url ? (
-                <img 
+                <Image 
                   src={formData.logo_url} 
-                  alt={formData.company_name}
+                  alt={formData.company_name || 'Company logo'}
+                  width={40}
+                  height={40}
                   className="h-10 w-auto"
                 />
               ) : (
@@ -420,7 +420,7 @@ export function EcommerceTemplate({ formData }: EcommerceTemplateProps) {
                       <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                     ))}
                   </div>
-                  <p className="text-gray-600 mb-4 italic">"{review.quote}"</p>
+                  <p className="text-gray-600 mb-4 italic">&quot;{review.quote}&quot;</p>
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="font-semibold text-gray-900">{review.name}</div>
@@ -447,7 +447,7 @@ export function EcommerceTemplate({ formData }: EcommerceTemplateProps) {
                 Get In Touch
               </h2>
               <p className="text-xl text-gray-600">
-                Have questions? We're here to help!
+                Have questions? We&apos;re here to help!
               </p>
             </div>
             
@@ -501,9 +501,11 @@ export function EcommerceTemplate({ formData }: EcommerceTemplateProps) {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 {formData.logo_url ? (
-                  <img 
+                  <Image 
                     src={formData.logo_url} 
-                    alt={formData.company_name}
+                    alt={formData.company_name || 'Company logo'}
+                    width={32}
+                    height={32}
                     className="h-8 w-auto"
                   />
                 ) : (

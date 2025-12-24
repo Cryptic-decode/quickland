@@ -23,6 +23,26 @@ interface TemplatePreviewModalProps {
   selectedTemplate?: string
 }
 
+type FeatureItem = {
+  title: string
+  description: string
+}
+
+type TestimonialItem = {
+  name: string
+  company?: string
+  rating?: number
+  quote: string
+}
+
+type ProductItem = {
+  title: string
+  price: string
+  description: string
+}
+
+type SectionItem = FeatureItem | TestimonialItem | ProductItem
+
 const templatePreviews = {
   business_professional: {
     hero: {
@@ -203,56 +223,67 @@ export function TemplatePreviewModal({ isOpen, onClose, template, onSelect, sele
                   <div className="p-6 space-y-8">
                     {previewData.sections.map((section: typeof previewData.sections[0], index: number) => (
                       <div key={index}>
-                        {section.type === 'features' && (
+                        {section.type === 'features' && section.items && (
                           <div>
                             <h2 className="text-xl font-semibold mb-4">{section.title}</h2>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                              {section.items.map((item: typeof section.items[0], i: number) => (
-                                <div key={i} className="text-center p-4 border rounded-lg">
-                                  <h3 className="font-semibold mb-2">{item.title}</h3>
-                                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
-                                </div>
-                              ))}
+                              {section.items.map((item: SectionItem, i: number) => {
+                                const featureItem = item as FeatureItem
+                                return (
+                                  <div key={i} className="text-center p-4 border rounded-lg">
+                                    <h3 className="font-semibold mb-2">{featureItem.title}</h3>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">{featureItem.description}</p>
+                                  </div>
+                                )
+                              })}
                             </div>
                           </div>
                         )}
 
-                        {section.type === 'about' && (
+                        {section.type === 'about' && 'description' in section && (
                           <div>
                             <h2 className="text-xl font-semibold mb-4">{section.title}</h2>
                             <p className="text-gray-600 dark:text-gray-400">{section.description}</p>
                           </div>
                         )}
 
-                        {section.type === 'testimonials' && (
+                        {section.type === 'testimonials' && section.items && (
                           <div>
                             <h2 className="text-xl font-semibold mb-4">{section.title}</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              {section.items.map((item: typeof section.items[0], i: number) => (
-                                <div key={i} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                                  <p className="italic mb-2">&ldquo;{item.quote}&rdquo;</p>
-                                  <div className="text-sm">
-                                    <span className="font-semibold">{item.name}</span>
-                                    <span className="text-gray-600 dark:text-gray-400"> - {item.company}</span>
+                              {section.items.map((item: SectionItem, i: number) => {
+                                const testimonialItem = item as TestimonialItem
+                                return (
+                                  <div key={i} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                    <p className="italic mb-2">&ldquo;{testimonialItem.quote}&rdquo;</p>
+                                    <div className="text-sm">
+                                      <span className="font-semibold">{testimonialItem.name}</span>
+                                      {testimonialItem.company && (
+                                        <span className="text-gray-600 dark:text-gray-400"> - {testimonialItem.company}</span>
+                                      )}
+                                    </div>
                                   </div>
-                                </div>
-                              ))}
+                                )
+                              })}
                             </div>
                           </div>
                         )}
 
-                        {section.type === 'products' && (
+                        {section.type === 'products' && section.items && (
                           <div>
                             <h2 className="text-xl font-semibold mb-4">{section.title}</h2>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                              {section.items.map((item: typeof section.items[0], i: number) => (
-                                <div key={i} className="border rounded-lg p-4">
-                                  <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded mb-3"></div>
-                                  <h3 className="font-semibold mb-1">{item.title}</h3>
-                                  <p className="text-lg font-bold text-primary mb-1">{item.price}</p>
-                                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
-                                </div>
-                              ))}
+                              {section.items.map((item: SectionItem, i: number) => {
+                                const productItem = item as ProductItem
+                                return (
+                                  <div key={i} className="border rounded-lg p-4">
+                                    <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded mb-3"></div>
+                                    <h3 className="font-semibold mb-1">{productItem.title}</h3>
+                                    <p className="text-lg font-bold text-primary mb-1">{productItem.price}</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">{productItem.description}</p>
+                                  </div>
+                                )
+                              })}
                             </div>
                           </div>
                         )}

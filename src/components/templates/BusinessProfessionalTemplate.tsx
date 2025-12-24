@@ -1,8 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { 
   CheckCircle, 
@@ -14,8 +14,7 @@ import {
   MapPin,
   ArrowRight,
   Shield,
-  Clock,
-  Headphones
+  Clock
 } from 'lucide-react'
 import { QuickLandFormData } from '@/types'
 
@@ -63,9 +62,11 @@ export function BusinessProfessionalTemplate({ formData }: BusinessProfessionalT
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               {formData.logo_url ? (
-                <img 
+                <Image 
                   src={formData.logo_url} 
-                  alt={formData.company_name}
+                  alt={formData.company_name || 'Company logo'}
+                  width={40}
+                  height={40}
                   className="h-10 w-auto"
                 />
               ) : (
@@ -234,7 +235,7 @@ export function BusinessProfessionalTemplate({ formData }: BusinessProfessionalT
                 What Our Clients Say
               </h2>
               <p className="text-xl text-gray-600">
-                Don't just take our word for it - hear from our satisfied customers
+                Don&apos;t just take our word for it - hear from our satisfied customers
               </p>
             </div>
             
@@ -269,7 +270,7 @@ export function BusinessProfessionalTemplate({ formData }: BusinessProfessionalT
                       <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                     ))}
                   </div>
-                  <p className="text-gray-600 mb-4 italic">"{testimonial.quote}"</p>
+                  <p className="text-gray-600 mb-4 italic">&quot;{testimonial.quote}&quot;</p>
                   <div>
                     <div className="font-semibold text-gray-900">{testimonial.name}</div>
                     <div className="text-sm text-gray-500">{testimonial.company}</div>
@@ -375,9 +376,11 @@ export function BusinessProfessionalTemplate({ formData }: BusinessProfessionalT
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 {formData.logo_url ? (
-                  <img 
+                  <Image 
                     src={formData.logo_url} 
-                    alt={formData.company_name}
+                    alt={formData.company_name || 'Company logo'}
+                    width={32}
+                    height={32}
                     className="h-8 w-auto"
                   />
                 ) : (
