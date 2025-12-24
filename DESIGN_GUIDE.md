@@ -41,6 +41,7 @@ gradient-secondary: linear-gradient(135deg, #9333ea 0%, #8b45ff 100%);
 
 #### Neutral Colors
 
+
 ```css
 /* Light Mode */
 --background: 255 255 255; /* White */
