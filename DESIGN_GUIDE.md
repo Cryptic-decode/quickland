@@ -67,7 +67,6 @@ font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, san
 ```
 
 ### Font Sizes & Weights
-
 ```css
 /* Headings */
 h1: text-4xl font-bold (36px, 700)
